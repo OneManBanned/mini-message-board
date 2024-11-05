@@ -12,11 +12,12 @@ const handlebars = pkg.engine
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(express.urlencoded({extended: true}))
+
+app.engine("hbs", handlebars({ layoutDirs: __dirname + 'views/layouts/', extname: 'hbs' }))
 app.set("view engine", "hbs")
-app.engine("hbs", handlebars({
-    layoutDirs: __dirname + 'views/layouts/',
-    extname: 'hbs'
-}))
+app.set('views', './views')
+
 
 app.use("/", indexRouter);
 app.use("/new", messageRouter)
